@@ -1,0 +1,9 @@
+pillow
+PyPDF2
+pymupdf
+openai
+langchain-openai
+sapling-py
+streamlit
+pdfminer.six
+python-dotenv
