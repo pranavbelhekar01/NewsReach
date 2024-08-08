@@ -5,16 +5,20 @@ import json
 import re
 from dotenv import load_dotenv
 import os
+import openai
+
 
 load_dotenv()
-API_KEY = os.environ.get("OPENAI_API_KEY")
+
+API_KEY = os.getenv('OPENAI_API_KEY')
+openai.api_key = API_KEY
 llm = ChatOpenAI(
         model="gpt-4o",
         temperature=0,
         max_tokens=None,
         timeout=None,
         max_retries=2,
-        api_key=API_KEY
+        # api_key=API_KEY
     )
 content = ''
 # with open(r'Document Analysis\data\business.txt', 'r', encoding="utf-8") as data:
