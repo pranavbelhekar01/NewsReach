@@ -57,27 +57,20 @@ def get_keywords(content):
 
 def profanity_test(content):
     prompt = """
-    Perform a profanity test on the <content> provided by the <human>. Classify the <content> into 'PASS' or 'FAIL'. If 'FAIL' then provide reasons 
-    Examples: 
-        1)       
-        Human: <content>
-        your response: PASS
-        2)
-        Human: <content>
-        your response: PASS
-        3)
-        Human: <content>
-        your response: FAIL
-                        Reason: <reason>
+    Perform a profanity test on the <content> provided by the <human>. Classify the <content> into 'PASS' or 'FAIL'. If 'FAIL' then provide <reason> 
+    expected output format:
+        Example 1: 
+            {
+            "test": "PASS",
+        } 
 
-        4)        
-        Human: <content>
-        your response: PASS
+        Example 2:
+            {
+            "test":"FAIL",
+            "reason": "<reason>"
+        }    
+   
 
-        5)
-        Human: <content>
-        your response: FAIL
-                        Reason: <reason>
 
 
     """
@@ -86,7 +79,8 @@ def profanity_test(content):
         ("human", content),
     ]
     ai_msg = llm.invoke(messages)
-    return ai_msg.content
+    string = json.loads(ai_msg.content)
+    return string
 
 
 def required_fields(spell):
@@ -182,7 +176,8 @@ def final_score(content):
     ]
     ai_msg = llm.invoke(messages)
     # return ai_msg.content
-    return clean_json_string(ai_msg.content)
+    string = clean_json_string(ai_msg.content)
+    return json.loads(string)
 
 
 
